@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Student Portal — {{ student.first_name }} {{ student.last_name }}{% endblock %}
+{% block body_class %}bg-blue{% endblock %}
+
+{% block content %}
+<div class="page-container details-wrap">
+  <div class="details-grid">
+
+    <div class="profile-card">
+      <img class="profile-card__photo"
+           src="{{ url_for('static', filename='uploads/' + student.image_filename) }}"
+           alt="Photo of {{ student.first_name }} {{ student.last_name }}">
+      <p class="profile-card__name">{{ student.first_name }} {{ student.last_name }}</p>
+      <span id="status-badge" class="status-badge status-{{ student.admission_status }}">{{ student.admission_status }}</span>
+    </div>
+
+    <div class="details-sections">
+
+      <h2 class="info-section">Personal Information</h2>
+      <ul class="details-list">
+        <li><strong>Email:</strong> {{ student.email }}</li>
+        <li><strong>Gender:</strong> {{ student.gender }}</li>
+        <li><strong>Phone Number:</strong> {{ student.phone_number }}</li>
+        <li><strong>Date Of Birth:</strong> {{ student.date_of_birth }}</li>
+        <li><strong>Address:</strong> {{ student.address }}</li>
+      </ul>
+
+      <h2 class="info-section">Other Information</h2>
+      <div class="details-row">
+        <div><strong>State Of Origin:</strong> {{ student.state_of_origin }}</div>
+        <div><strong>Local Govt:</strong> {{ student.local_government }}</div>
+      </div>
+
+      <h2 class="info-section">Academics Related Information</h2>
+      <div class="details-row">
+        <div><strong>Next Of Kin:</strong> {{ student.next_of_kin }}</div>
+        <div><strong>Jamb Score:</strong> {{ student.jamb_score }}</div>
+        <div><strong>Status:</strong> <span id="status-text">{{ student.admission_status }}</span></div>
+        <div class="status-change">
+          <label for="status-select"><strong>Change Status:</strong></label>
+          <select id="status-select" data-student-id="{{ student.id }}">
+            <option value="">Change-Status</option>
+            {% for status in statuses %}
+              <option value="{{ status }}" {% if status == student.admission_status %}selected{% endif %}>{{ status|capitalize }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <p id="status-message" class="status-message" aria-live="polite"></p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/details.js') }}"></script>
+{% endblock %}

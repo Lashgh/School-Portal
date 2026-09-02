@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Student Portal — Enroll{% endblock %}
+{% block body_class %}bg-blue{% endblock %}
+
+{% block content %}
+<div class="page-container form-wrap">
+  <h1 class="form-title">Student Portal Form</h1>
+  <p class="form-note">Please fill in all required information</p>
+
+  {% if error %}
+    <p class="form-error">{{ error }}</p>
+  {% endif %}
+
+  <form action="{{ url_for('enroll') }}" method="POST" enctype="multipart/form-data" novalidate>
+
+    <h2 class="form-section">Personal Information</h2>
+
+    <div class="field field--full">
+      <label for="image">Upload Image</label>
+      <input type="file" id="image" name="image" accept="image/png,image/jpeg,image/gif" required>
+    </div>
+
+    <div class="form-grid">
+      <div class="field">
+        <label for="first_name">FirstName</label>
+        <input type="text" id="first_name" name="first_name" placeholder="Enter FirstName" required>
+      </div>
+      <div class="field">
+        <label for="middle_name">MiddleName</label>
+        <input type="text" id="middle_name" name="middle_name" placeholder="Enter MiddleName" required>
+      </div>
+
+      <div class="field">
+        <label for="last_name">LastName</label>
+        <input type="text" id="last_name" name="last_name" placeholder="Enter LastName" required>
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter Email Address" required>
+      </div>
+
+      <div class="field">
+        <label for="date_of_birth">Date Of Birth</label>
+        <input type="date" id="date_of_birth" name="date_of_birth" required>
+      </div>
+      <div class="field">
+        <label>Gender</label>
+        <div class="radio-group">
+          <label class="radio-inline"><input type="radio" name="gender" value="Male" required> Male</label>
+          <label class="radio-inline"><input type="radio" name="gender" value="Female"> Female</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="phone_number">Phone Number</label>
+        <input type="tel" id="phone_number" name="phone_number" placeholder="Enter PhoneNumber" required>
+      </div>
+      <div class="field">
+        <label for="address">Address</label>
+        <textarea id="address" name="address" placeholder="Enter Address" required></textarea>
+      </div>
+
+      <div class="field">
+        <label for="state_of_origin">State Of Origin</label>
+        <select id="state_of_origin" name="state_of_origin" required>
+          <option value="">Select-State</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="local_government">Local Government</label>
+        <select id="local_government" name="local_government" required disabled>
+          <option value="">Select-Local-Government</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field field--full">
+      <label for="next_of_kin">Next Of Kin</label>
+      <input type="text" id="next_of_kin" name="next_of_kin" placeholder="Enter The Name Of NextOfKin" required>
+    </div>
+
+    <h2 class="form-section">Academics Related Information</h2>
+
+    <div class="field field--full">
+      <label for="jamb_score">Jamb Score</label>
+      <input type="number" id="jamb_score" name="jamb_score" placeholder="Enter Jamb Score" min="0" max="400" required>
+    </div>
+
+    <button type="submit" class="btn btn--primary form-submit">Submit</button>
+  </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/form.js') }}"></script>
+{% endblock %}

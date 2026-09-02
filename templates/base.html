@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Student Portal{% endblock %}</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  {% block extra_css %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+
+  <nav class="navbar">
+    <div class="navbar__left">
+      <a href="{{ url_for('landing') }}" class="navbar__brand">
+        <svg class="navbar__brand-mark" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="6" fill="#E2793D"/>
+          <path d="M7 13.5l3 3 7-7" stroke="#FFFFFF" stroke-width="2.2" fill="none"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Student Portal
+      </a>
+      <a href="{{ url_for('landing') }}" class="navbar__home"
+         {% if request.endpoint == 'landing' %}aria-current="page"{% endif %}>Home</a>
+    </div>
+
+    <a href="{{ url_for('enroll') }}" class="navbar__cta">Get Started</a>
+  </nav>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    All rights reserved &copy; {{ current_year }} Student Portal
+  </footer>
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html>
